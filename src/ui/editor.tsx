@@ -2,7 +2,7 @@
 import { useState } from "react";
 import { Editor, EditorTextChangeEvent } from "primereact/editor";
 import { AiPrompt } from './dialog';
-const AiButton = () => {
+const AiButton = ({ getData }: any) => {
     const [visible, setVisible] = useState<boolean>(false);
     const handleClick = () => {
         setVisible(true)
@@ -14,12 +14,16 @@ const AiButton = () => {
         <>
       <button id="custom-button" onClick={handleClick}>AI
       </button>
-      <AiPrompt visible={visible} reset ={reset} />
+      <AiPrompt visible={visible} reset ={reset} getData={getData} />
       </>
     );
   };
 export const ByodEditor =()=> {
     const [text, setText] = useState<string>('');
+    const getData = ({ value }: any) => {
+        console.log("value:",value);
+        setText(text + value);
+    }
     const renderHeader = () => {
         return (
             <span className="ql-formats">
@@ -28,7 +32,7 @@ export const ByodEditor =()=> {
                 <button className="ql-underline" aria-label="Underline"></button>
                 <button className="ql-image" aria-label="Image"></button>
                 <button className="ql-video" aria-label="Video"></button>
-                <AiButton/>
+                <AiButton getData={ getData }/>
             </span>
         );
     };

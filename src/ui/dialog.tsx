@@ -5,7 +5,7 @@ import { Dialog } from 'primereact/dialog';
 import { Dropdown } from 'primereact/dropdown';
 import { InputTextarea } from "primereact/inputtextarea";
 
-export const AiPrompt=({ visible, reset }: any)=> {
+export const AiPrompt=({ visible, reset, getData }: any)=> {
   const [selected, setSelected] = useState(null);
   const [value, setValue] = useState('');
   const questions = [
@@ -15,6 +15,14 @@ export const AiPrompt=({ visible, reset }: any)=> {
       { name: 'Table', code: 'TABLE' },
       { name: 'AI Image', code: 'AIIMAGE' }
   ];
+  const onClick =()=>{
+    getData({
+        selected: selected,
+        value: value
+    });
+    setValue('');
+    setSelected(null);
+  }
     return (
         <div className="card flex justify-content-center">
             <Dialog
@@ -38,7 +46,7 @@ export const AiPrompt=({ visible, reset }: any)=> {
                         </div>
                         
                         <div className="flex align-items-center gap-2">
-                            <Button label="Retrieve" onClick={(e) => hide(e)} text className="p-3 w-full text-primary-50 border-1 border-white-alpha-30 hover:bg-white-alpha-10"></Button>
+                            <Button label="Retrieve" onClick={(e) => {hide(e); onClick(); return; }} text className="p-3 w-full text-primary-50 border-1 border-white-alpha-30 hover:bg-white-alpha-10"></Button>
                             <Button label="Cancel" onClick={(e) => hide(e)} text className="p-3 w-full text-primary-50 border-1 border-white-alpha-30 hover:bg-white-alpha-10"></Button>
                         </div>
                     </div>
