@@ -1,7 +1,23 @@
+/// <reference types="vitest/config" />
 import { defineConfig } from 'vite'
 import react from '@vitejs/plugin-react-swc'
+import zipPack from "vite-plugin-zip-pack";
 
-// https://vite.dev/config/
 export default defineConfig({
-  plugins: [react()],
+  base:"./",
+  plugins: [
+    react(),
+    zipPack({
+      inDir: 'build',
+      outDir: 'dist'
+    })
+  ],
+  test: {
+    // ... Specify options here.
+  },
+  build: {
+    outDir: "build",
+    sourcemap: false
+  }
+
 })

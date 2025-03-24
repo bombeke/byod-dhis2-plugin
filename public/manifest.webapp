@@ -1,0 +1,24 @@
+{
+  "appType": "APP",
+  "short_name": "byod-dhis2-plugin",
+  "name": "Bombeke BYOD Analytics",
+  "description": "DHIS2 WebApp to generate AI based data reports and analytics using the Bombeke BYOD Platform",
+  "version": "0.0.1",
+  "launch_path": "index.html",
+  "default_locale": "en",
+  "activities": {
+    "dhis": {
+      "href": "../../.."
+    }
+  },
+  "icons": {
+    "48": "logo192.png"
+  },
+  "developer": {
+    "name": "atumwesigye@gmail.com"
+  },
+  "display": "standalone",
+  "theme_color": "#ffffff",
+  "background_color": "#ffffff",
+  "scope": "."
+}
