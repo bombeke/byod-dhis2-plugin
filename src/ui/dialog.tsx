@@ -113,9 +113,10 @@ export const AiPrompt=({ visible, reset, getData }: any)=> {
   }
   useEffect(()=>{
     const fetchData = async () => {
+        setLoading(true);
         try {
             if(chat){
-                const response = await fetch('http://192.168.1.72:5000/byodai/ask', {
+                const response = await fetch('http://192.168.100.200:5000/byodai/ask', {
                     method: 'POST',
                     headers: {
                     'Content-Type': 'application/json', 
@@ -130,7 +131,13 @@ export const AiPrompt=({ visible, reset, getData }: any)=> {
                 }
         
                 const result = await response.json(); 
-                setData(result?.response);
+                if(typeof result?.response === 'string'){
+                    setData(JSON.parse(result?.response));
+                }
+                if(typeof result?.response === 'object'){
+                    setData(result?.response);
+                }
+                setLoading(false);
             }
         } 
         catch (err: any) {
@@ -142,8 +149,8 @@ export const AiPrompt=({ visible, reset, getData }: any)=> {
       };
     fetchData();
   },[chat])
-  console.log("loading:",loading,"error:",error)
-  console.log("data:",data)
+  console.log("error:",error)
+  console.log("data:",data);
     return (
         <div className="card flex justify-content-center">
             <Dialog
@@ -161,13 +168,20 @@ export const AiPrompt=({ visible, reset, getData }: any)=> {
                         </div>                        
                         <div className="inline-flex flex-column gap-2">
                             <label htmlFor="query" className="text-primary-50 font-semibold">
-                                Query
+                                <span>
+                                    Ask Question
+                                </span>
                             </label>
+                            <span>
+                                    Example: Generate [.......] for [type of chart]
+                            </span>
                             <InputTextarea id="query" placeholder="Message to send for querying" className="bg-white-alpha-20 border-none p-3 text-primary-50" value={value??''} onChange={(e) => setValue(e.target.value as any)} rows={5} cols={30} />
                         </div>
                         <Button label="Send" onClick={ getOptions } text className="p-3 w-full text-primary-50 border-1 border-white-alpha-30 hover:bg-white-alpha-10"></Button>
-                        {data?(<ByodSampleChart ref={ chartRef } options={ data } getImage={ getImage }/>):null}
+                        {data && !loading?(<ByodSampleChart ref={ chartRef } options={ data } getImage={ getImage }/>):null}
+                        <InputTextarea id="query_interpretation" placeholder="" className="bg-white-alpha-20 border-none p-3 text-primary-50" rows={5} cols={30} />
                         <div className="flex align-items-center gap-2">
+
                             <Button label="Save" onClick={(e) => {hide(e); onClick(); return; }} text className="p-3 w-full text-primary-50 border-1 border-white-alpha-30 hover:bg-white-alpha-10"></Button>
                             <Button label="Cancel" onClick={(e) => hide(e)} text className="p-3 w-full text-primary-50 border-1 border-white-alpha-30 hover:bg-white-alpha-10"></Button>
                         </div>
