@@ -7,17 +7,18 @@ import 'primeicons/primeicons.css';
 import 'primeflex/primeflex.css';
 import 'primereact/resources/primereact.css';
 import "primereact/resources/themes/lara-light-cyan/theme.css";
-import App from './App.tsx'
 import { DataList } from './ui';
+import { Tracker, Report } from './modules';
 
 createRoot(document.getElementById('root')!).render(
   <StrictMode>
     <HashRouter>
       <PrimeReactProvider>
-      <Routes>
-        <Route index element={<DataList />} />
-        <Route path="new" element={<App />} />
-      </Routes>
+        <Routes>
+          <Route index element={<DataList />} />
+          <Route path="new" element={<Report/> } />
+          <Route path="track" element={ <Tracker/> } />
+        </Routes>
       </PrimeReactProvider>
     </HashRouter>
   </StrictMode>,

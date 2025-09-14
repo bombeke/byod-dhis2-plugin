@@ -29,6 +29,21 @@ export const ByodMenu =()=> {
             ]
         },
         {
+            label: 'Register',
+            items: [
+                {
+                    label: 'New',
+                    icon: 'pi pi-plus',
+                    url: "#/track"
+                },
+                {
+                    label: 'Search',
+                    icon: 'pi pi-search',
+                    url: "#/"
+                }
+            ]
+        },
+        {
             label: 'User Groups',
             items: [
                 {

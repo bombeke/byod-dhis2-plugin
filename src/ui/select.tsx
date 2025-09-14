@@ -1,33 +1,27 @@
 
 import { useState } from "react";
 import { MultiSelect, MultiSelectChangeEvent } from 'primereact/multiselect';
+import { ISelectProps } from "./Type";
 
-interface UserGroup {
-    name: string;
-    code: string;
-}
 
-export const ByodSelect =()=> {
-    const [selected, setSelected] = useState<UserGroup[] | null>(null);
-    const userGroups: UserGroup[] = [
-        { name: 'Minister', code: 'MINISTER' },
-        { name: 'Head of Departments', code: 'HOD' },
-        { name: 'Partners', code: 'PARTNERS' },
-        { name: 'Guest', code: 'GUEST' },
-        { name: 'All', code: 'ALL' }
-    ];
+
+export const ByodMultiSelect =({label, placeholder, options }: ISelectProps )=> {
+    const [selected, setSelected] = useState<any[] | null>(null);
 
     return (
-        <div className="flex w-full justify-content-center field">
-            <MultiSelect 
-                value={selected} 
-                onChange={(e: MultiSelectChangeEvent) => setSelected(e.value)} 
-                options={userGroups} 
-                display="chip" 
-                optionLabel="name" 
-                placeholder="Select User Groups" 
-                className="w-full" 
-            />
+        <div className="flex w-full flex-column justify-content-start gap-1 field ">
+            <label>{label}</label>
+            <div className="p-inputgroup flex-1 w-full">
+                <MultiSelect 
+                    value={selected} 
+                    onChange={(e: MultiSelectChangeEvent) => setSelected(e.value)} 
+                    options={ options} 
+                    display="chip" 
+                    optionLabel="name" 
+                    placeholder={placeholder }
+                    className="w-full" 
+                />
+            </div>
         </div>
     );
 }
